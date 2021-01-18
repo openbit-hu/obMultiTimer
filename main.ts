@@ -18,16 +18,17 @@ class Timer{
         }
     }
 }
+  
+//% color=#008060 weight=100 icon="\uf017" block="obTimer"
 namespace obMultiTimer {
     let timers:Timer[]
     let minDt:number=1000
     let res:number=200
     let t0:number
     //% blockId="obTimer_start"
-    //% block="start Timer event || in every $time ms with $resolution ms accuracy"
+    //% block="start all Timer events || with $resolution ms accuracy"
     export function start(resolution?:number){
         if(resolution)res=resolution
-//        if(resolution>dt/2)resolution=dt/2
         t0=control.millis()
         for(let timer of timers){
             timer.start(t0)
@@ -56,8 +57,7 @@ namespace obMultiTimer {
             minDt=dt
             res=minDt/2
         }
-        let tmr=new Timer(id,dt,body)
         if(timers==null)timers=[]
-        timers.push(tmr)
+        timers.push(new Timer(id,dt,body))
     }
 }
