@@ -18,10 +18,8 @@ class Timer{
         }
     }
 }
-
-//% color=#008060 weight=100 icon="\uf017" block="obTimer"
 namespace obMultiTimer {
-    let timers:Timer[]=[]
+    let timers:Timer[]
     let minDt:number=1000
     let res:number=200
     let t0:number
@@ -58,6 +56,8 @@ namespace obMultiTimer {
             minDt=dt
             res=minDt/2
         }
-        timers.push(new Timer(id,dt,body))
+        let tmr=new Timer(id,dt,body)
+        if(timers==null)timers=[]
+        timers.push(tmr)
     }
 }
