@@ -16,8 +16,8 @@ class Timer{
     check(t:number){
         if(this.isSuspended)return
         if(t-this.t0>this.dt){
-            this.timerCallback()
             this.t0=t
+            this.timerCallback()
         }
     }
 }
@@ -29,7 +29,7 @@ namespace obMultiTimer {
     let res:number=200
     let t0:number
     //% blockId="obMultitTimer_start"
-    //% block="start all Timer events || with $resolution ms accuracy"
+    //% block="start all timer events || with $resolution ms accuracy"
     export function start(resolution?:number){
         if(resolution)res=resolution
         t0=control.millis()
@@ -47,7 +47,7 @@ namespace obMultiTimer {
         })
     }
     //% blockId="obMultitTimer_suspend"
-    //% block="suspend Timer $id"
+    //% block="suspend timer $id"
     export function suspend(id:string){
         for(let timer of timers){
             if(timer.id==id){
@@ -56,7 +56,7 @@ namespace obMultiTimer {
         }
     }
     //% blockId="obMultitTimer_issuspended"
-    //% block="Timer $id is suspended?"
+    //% block="timer $id is suspended?"
     export function isSuspended(id:string):number{
         for(let timer of timers){
             if(timer.id==id){
@@ -66,7 +66,7 @@ namespace obMultiTimer {
         return -1
     }
     //% blockId="obMultitTimer_restart"
-    //% block="restart Timer $id"
+    //% block="restart timer $id"
     export function restart(id:string){
         for(let timer of timers){
             if(timer.id==id){
@@ -81,7 +81,7 @@ namespace obMultiTimer {
      * @param body TODO
      */
     //% blockId="obTimer_onTimerEvent"
-    //% block="onTimerEvent $id $dt"
+    //% block="on $id timer event every $dt ms"
     export function onTimerEvent(id:string, dt:number, body: () => void): void {
         if(dt<100)dt=100
         if(dt<minDt){
