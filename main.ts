@@ -2,6 +2,7 @@ class Timer{
     id:string
     dt:number
     t0:number
+    isSuspended:number
     timerCallback:()=>void
     constructor(id:string,dt:number,body:()=>void){
         this.id=id
@@ -10,8 +11,10 @@ class Timer{
     }
     start(millis:number){
         this.t0=millis
+        this.isSuspended=0
     }
     check(t:number){
+        if(this.isSuspended)return
         if(t-this.t0>this.dt){
             this.timerCallback()
             this.t0=t
@@ -19,13 +22,13 @@ class Timer{
     }
 }
   
-//% color=#008060 weight=100 icon="\uf017" block="obTimer"
+//% color=#008060 weight=100 icon="\uf017" block="obMultiTimer"
 namespace obMultiTimer {
     let timers:Timer[]
     let minDt:number=1000
     let res:number=200
     let t0:number
-    //% blockId="obTimer_start"
+    //% blockId="obMultitTimer_start"
     //% block="start all Timer events || with $resolution ms accuracy"
     export function start(resolution?:number){
         if(resolution)res=resolution
@@ -42,6 +45,34 @@ namespace obMultiTimer {
                 }
             }
         })
+    }
+    //% blockId="obMultitTimer_suspend"
+    //% block="suspend Timer $id"
+    export function suspend(id:string){
+        for(let timer of timers){
+            if(timer.id==id){
+                timer.isSuspended=1
+            }
+        }
+    }
+    //% blockId="obMultitTimer_issuspended"
+    //% block="Timer $id is suspended?"
+    export function isSuspended(id:string):number{
+        for(let timer of timers){
+            if(timer.id==id){
+                return timer.isSuspended
+            }
+        }
+        return -1
+    }
+    //% blockId="obMultitTimer_restart"
+    //% block="restart Timer $id"
+    export function restart(id:string){
+        for(let timer of timers){
+            if(timer.id==id){
+                if(timer.isSuspended)timer.start(control.millis())
+            }
+        }
     }
     /**
      * Attaches code to run when the timer triggers an event.
