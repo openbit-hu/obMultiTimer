@@ -29,7 +29,7 @@ namespace obMultiTimer {
     let res:number=200
     let t0:number
     //% blockId="obMultitTimer_start"
-    //% block="start all timer events || with $resolution ms accuracy"
+    //% block="start all timers || with $resolution ms accuracy"
     export function start(resolution?:number){
         if(resolution)res=resolution
         t0=control.millis()
