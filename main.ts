@@ -49,7 +49,7 @@ namespace obMultiTimer {
      * @param body TODO
      */
     //% blockId="obTimer_onTimerEvent"
-    //% block="onTimerEvent"
+    //% block="onTimerEvent $id $dt"
     export function onTimerEvent(id:string, dt:number, body: () => void): void {
         if(dt<100)dt=100
         if(dt<minDt){
