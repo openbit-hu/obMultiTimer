@@ -24,13 +24,14 @@ class Timer{
   
 //% color=#008060 weight=100 icon="\uf017" block="obMultiTimer"
 namespace obMultiTimer {
-    let timers:Timer[]
+    let timers:Timer[]=[]
     let minDt:number=1000
     let res:number=200
     let t0:number
     //% blockId="obMultitTimer_start"
     //% block="start all timers || with $resolution ms accuracy"
     export function start(resolution?:number){
+        if(timers==null)timers=[]
         if(resolution)res=resolution
         t0=control.millis()
         for(let timer of timers){
@@ -71,6 +72,15 @@ namespace obMultiTimer {
         for(let timer of timers){
             if(timer.id==id){
                 if(timer.isSuspended)timer.start(control.millis())
+            }
+        }
+    }
+    //% blockId="obMultitTimer_remove"
+    //% block="remove timer $id"
+    export function remove(id:string){
+        for(let timer of timers){
+            if(timer.id==id){
+                timers.removeElement(timer)
             }
         }
     }
