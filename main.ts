@@ -1,7 +1,7 @@
 class Timer{
     id:string
     dt:number
-    t0:number
+    t0:number=0
     isSuspended:number
     timerCallback:()=>void
     constructor(id:string,dt:number,body:()=>void){
@@ -15,6 +15,10 @@ class Timer{
     }
     check(t:number){
         if(this.isSuspended)return
+        if(this.t0==0){
+            this.t0=t
+            return
+        }
         if(t-this.t0>this.dt){
             this.t0=t
             this.timerCallback()
